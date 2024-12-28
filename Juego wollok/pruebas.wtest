@@ -1,0 +1,36 @@
+import avion.*
+
+describe "Tests de puntuaciones al matar un enemigo" {
+
+  test "Sumar 5 al matar un enemigo cuerpo a cuerpo" {
+    const nuevaBala = new Bala(latitud =0, altura = 0 , imagen = "spaceMissiles_015.png", id = 0.randomUpTo(5000), esEnemigo=false)
+    const nuevoEnemigoCuerpo = new EnemigoCuerpoACuerpo(id = 1)
+    nuevoEnemigoCuerpo.perderVida(nuevaBala)
+    nuevoEnemigoCuerpo.perderVida(nuevaBala)
+    nuevoEnemigoCuerpo.perderVida(nuevaBala)
+    nuevoEnemigoCuerpo.perderVida(nuevaBala)
+    nuevoEnemigoCuerpo.perderVida(nuevaBala)
+    assert.equals(5, avion.puntaje())
+  }
+
+  test "Sumar 7 al matar un enemigo pistolero" {
+    const nuevaBala = new Bala(latitud =0, altura = 0 , imagen = "spaceMissiles_015.png", id = 0.randomUpTo(5000), esEnemigo=false)
+    const nuevoEnemigoPistola = new EnemigoPistolero(id = 2)
+    nuevoEnemigoPistola.perderVida(nuevaBala)
+    nuevoEnemigoPistola.perderVida(nuevaBala)
+    nuevoEnemigoPistola.perderVida(nuevaBala)
+    assert.equals(7, avion.puntaje())
+  }
+  
+}
+
+describe "Tests de variacion de vida del personaje principal" {
+
+  test "Restar vida al avion cuando nos impacta una bala enemiga" {
+    const nuevoEnemigoPistola = new EnemigoPistolero(id = 3)
+    const nuevaBalaEnemiga = new Bala(latitud=0, altura =0 , imagen="bala_Enemigo.png", id = 0.randomUpTo(5000), esEnemigo=true )
+    nuevaBalaEnemiga.colicionarContraAvion()
+    assert.equals(2, avion.vida())
+    assert.that(avion.vida() < 3)
+  }
+}

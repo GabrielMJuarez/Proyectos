@@ -1,0 +1,58 @@
+import wollok.game.*
+
+import avion.*
+
+program PlaneFight {
+	
+	game.title("Plane Fight")
+	game.height(10)
+	game.width(20)
+	game.cellSize(100)
+	game.boardGround("sky1.png")
+	game.addVisualCharacter(avion)
+	const corazon0 = new Corazon(id=0)
+	const corazon1 = new Corazon(id=1)
+    const corazon2 = new Corazon(id=2)
+	game.addVisual(corazon0)
+	game.addVisual(corazon1)
+	game.addVisual(corazon2)
+	
+
+//SOBRE EL PERSONAJE-----------------------------------------------------------------------
+
+//COLICIONES
+	game.whenCollideDo(avion, { elemento => 
+	//TODO usar polimorfismo en vez del if
+		elemento.colicionarContraAvion()
+		if(avion.vida()== 2) corazon2.desaparecer() else if(avion.vida() == 1) corazon1.desaparecer() else if(avion.vida()==0) corazon0.desaparecer() 
+
+	})
+
+
+//DISPARO
+	keyboard.space().onPressDo({
+	avion.disparar()
+	})
+
+//DIALOGOS
+	keyboard.h().onPressDo({game.say(avion,avion.hablar())})
+
+	keyboard.v().onPressDo({game.say(avion,avion.decirVida().toString())})
+
+	keyboard.p().onPressDo({game.say(avion,avion.decirPuntos().toString())})
+	
+
+//SOBRE ENEMIGOS --------------------------------------------------------------------------------
+	game.onTick(fase.tiempoAparicion(),"Aparicion enemigos de la Fase",{
+		if (fase.enemigosEliminadosFase() > fase.eliminacionesCambioFase()){ //los enemigos eliminados por fase son los matados, que se comparan con la cantidad necesaria para cambiar de fase
+			fase.cambiarFase()
+		}
+		if(fase.maxEnemigos() > fase.enemigosVivos()){
+			//fase.agregarBoss()
+			fase.agregarPistolero()
+		    fase.agregarCuerpoACuerpo() 
+		}
+	})
+
+	game.start()
+}
