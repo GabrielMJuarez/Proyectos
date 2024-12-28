@@ -1,0 +1,5 @@
+// Prueba 2: Uso de variables no declaradas
+inicio
+    int x;
+    y := 10;    // Error: 'y' no esta declaradas
+fin

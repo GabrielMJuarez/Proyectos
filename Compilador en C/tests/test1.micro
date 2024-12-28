@@ -1,0 +1,11 @@
+// Prueba 1: Programa simple valido
+inicio
+    int a;
+    int b;
+    leer(a,b);
+    int c;
+    c := a + b;
+    escribir("El valor de a es: ", a, " El valor de b es: ", b);
+    escribir(a, " + ", b, " es ", c);
+fin
+

@@ -1,0 +1,7 @@
+// Prueba 3: Operaciones aritmeticas 
+inicio
+    int x;
+    const int PI := 3;
+    x := 5 + (PI - 2);
+    escribir(x);
+fin
